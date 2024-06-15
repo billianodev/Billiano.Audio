@@ -2,6 +2,8 @@
 
 A library that implements fire and forget audio playback by caching audio source and playing it with audio mixer (all with one audio out)
 
+Support both CSCore and NAudio
+
 ---
 
 ## Example

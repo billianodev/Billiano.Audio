@@ -1,4 +1,5 @@
-﻿using NAudio.Wave;
+﻿using CSCore;
+using NAudio.Wave;
 
 namespace Billiano.Audio.FireForget;
 
@@ -25,6 +26,26 @@ public static class FireForgetExtension
     public static IFireForgetSource ToFireForgetSource(this IWaveProvider provider)
     {
         return FireForgetSource.CreateFromWaveProvider(provider);
+    }
+    
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="source"></param>
+    /// <returns></returns>
+    public static IFireForgetSource ToFireForgetSource(this ISampleSource source)
+    {
+        return FireForgetSource.CreateFromSampleProvider(source.ToSampleProvider());
+    }
+    
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="source"></param>
+    /// <returns></returns>
+    public static IFireForgetSource ToFireForgetSource(this IWaveSource source)
+    {
+        return FireForgetSource.CreateFromWaveProvider(source.ToWaveProvider());
     }
 
     /// <summary>
