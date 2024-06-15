@@ -6,6 +6,8 @@ namespace Billiano.Audio.FireForget;
 
 public sealed class FireForgetPlayer : IDisposable
 {
+    public WaveFormat WaveFormat => _mixer.WaveFormat;
+    
     private IWavePlayer _player;
     private MixingSampleProvider _mixer;
     
@@ -22,10 +24,21 @@ public sealed class FireForgetPlayer : IDisposable
         _player.Play();
     }
     
-    public int Play(IFireForgetSource source)
+    public void Play(ISampleProvider source, float volume = 1f)
     {
-        _mixer.AddMixerInput(source.ToSampleProvider());
-        return source.Buffer.ByteBufferLength / (source.WaveFormat.AverageBytesPerSecond / 1000) + 300;
+        source = new VolumeSampleProvider(source)
+        {
+            Volume = volume
+        };
+
+        source = new ResamplingSampleProvider(source, _mixer.WaveFormat);
+        
+        _mixer.AddMixerInput(source);
+    }
+    
+    public void Play(IFireForgetSource source, float volume = 1f)
+    {
+        Play(source.ToSampleProvider(), volume);
     }
     
     public void Dispose()

@@ -4,13 +4,13 @@ using NAudio.Wave.SampleProviders;
 
 namespace Billiano.Audio
 {
-    public class BetterResamplingSampleProvider : ISampleProvider
+    public class ResamplingSampleProvider : ISampleProvider
     {
         public WaveFormat WaveFormat => _source.WaveFormat;
         
         private readonly ISampleProvider _source;
         
-        public BetterResamplingSampleProvider(ISampleProvider source, WaveFormat targetWaveFormat)
+        public ResamplingSampleProvider(ISampleProvider source, WaveFormat targetWaveFormat)
         {
             _source = source;
             
@@ -25,11 +25,14 @@ namespace Billiano.Audio
                 {
                     _source = new MonoToStereoSampleProvider(_source);
                 }
-                else
+                else if (source.WaveFormat.Channels == 2 && targetWaveFormat.Channels == 1)
                 {
                     _source = new StereoToMonoSampleProvider(_source);
                 }
-                throw new NotSupportedException();
+                else
+                {
+                    throw new NotSupportedException();
+                }
             }
         }
 

@@ -4,7 +4,7 @@
         <TargetFramework>netstandard2.1</TargetFramework>
         <Nullable>enable</Nullable>
         <LangVersion>latest</LangVersion>
-        <Version>0.0.1-alpha</Version>
+        <Version>0.0.2-alpha</Version>
         <Title>Billiano.Audio.FireForget</Title>
         <Authors>Billiano</Authors>
         <RepositoryUrl>https://github.com/billianodev/Billiano.Audio</RepositoryUrl>
@@ -23,9 +23,9 @@
             <PackagePath>/</PackagePath>
         </None>
     </ItemGroup>
-
+    
     <ItemGroup Condition=" '$(Configuration)' == 'Release' ">
-      <PackageReference Include="Billiano.Audio" Version="0.0.1-alpha" />
+        <PackageReference Include="Billiano.Audio" Version="0.0.1-alpha" />
     </ItemGroup>
     
     <ItemGroup Condition=" '$(Configuration)' == 'Debug' ">
