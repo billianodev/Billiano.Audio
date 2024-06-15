@@ -3,8 +3,16 @@ using NAudio.Wave;
 
 namespace Billiano.Audio;
 
+/// <summary>
+/// 
+/// </summary>
 public static class WaveFormatConverter
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="waveFormat"></param>
+    /// <returns></returns>
     public static NAudio.Wave.WaveFormat ToNAudio(this CSCore.WaveFormat waveFormat)
     {
         return NAudio.Wave.WaveFormat.CreateCustomFormat(
@@ -16,6 +24,11 @@ public static class WaveFormatConverter
             waveFormat.BitsPerSample);
     }
     
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="waveFormat"></param>
+    /// <returns></returns>
     public static CSCore.WaveFormat ToCSCore(this NAudio.Wave.WaveFormat waveFormat)
     {
         return new CSCore.WaveFormat(

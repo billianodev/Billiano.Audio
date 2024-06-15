@@ -5,18 +5,49 @@ using WaveFormat = CSCore.WaveFormat;
 
 namespace Billiano.Audio;
 
+/// <summary>
+/// 
+/// </summary>
+/// <param name="provider"></param>
 public class SampleProviderToSource(ISampleProvider provider) : ISampleSource
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public bool CanSeek => false;
-    public WaveFormat WaveFormat => provider.WaveFormat.ToCSCore();
-    public long Position { get => throw new NotSupportedException(); set => throw new NotSupportedException(); }
-    public long Length { get => throw new NotSupportedException(); }
     
+    /// <summary>
+    /// 
+    /// </summary>
+    public WaveFormat WaveFormat => provider.WaveFormat.ToCSCore();
+    
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <exception cref="NotSupportedException"></exception>
+    public long Position { get => throw new NotSupportedException(); set => throw new NotSupportedException(); }
+    
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <exception cref="NotSupportedException"></exception>
+    public long Length => throw new NotSupportedException();
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="buffer"></param>
+    /// <param name="offset"></param>
+    /// <param name="count"></param>
+    /// <returns></returns>
     public int Read(float[] buffer, int offset, int count)
     {
         return provider.Read(buffer, offset, count);
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public void Dispose()
     {
     }

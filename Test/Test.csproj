@@ -6,14 +6,5 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
     </PropertyGroup>
-
-    <ItemGroup>
-      <PackageReference Include="Billiano.NAudio" Version="2.0.2" />
-      <PackageReference Include="NAudio" Version="2.2.1" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <ProjectReference Include="..\Billiano.Audio.FireForget\Billiano.Audio.FireForget.csproj" />
-    </ItemGroup>
-
+    
 </Project>

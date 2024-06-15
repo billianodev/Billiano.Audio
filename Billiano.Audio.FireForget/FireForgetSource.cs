@@ -9,25 +9,50 @@ namespace Billiano.Audio.FireForget;
 /// </summary>
 public class FireForgetSource : IFireForgetSource
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public WaveSampleBuffer Buffer { get; }
+    
+    /// <summary>
+    /// 
+    /// </summary>
     public WaveFormat WaveFormat { get; }
-
+    
     private FireForgetSource(WaveSampleBuffer buffer, WaveFormat waveFormat)
     {
         Buffer = buffer;
         WaveFormat = waveFormat;
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="data"></param>
+    /// <param name="waveFormat"></param>
+    /// <returns></returns>
     public static IFireForgetSource CreateFromRaw(byte[] data, WaveFormat waveFormat)
     {
         return new FireForgetSource(new WaveSampleBuffer(data), waveFormat);
     }
     
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="data"></param>
+    /// <param name="waveFormat"></param>
+    /// <returns></returns>
     public static IFireForgetSource CreateFromRaw(float[] data, WaveFormat waveFormat)
     {
         return new FireForgetSource(new WaveSampleBuffer(data), waveFormat);
     }
     
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="stream"></param>
+    /// <param name="waveFormat"></param>
+    /// <returns></returns>
     public static IFireForgetSource CreateFromRawStream(Stream stream, WaveFormat waveFormat)
     {
         return CreateFromWaveProvider(new RawSourceWaveStream(stream, waveFormat));

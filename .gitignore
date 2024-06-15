@@ -1,4 +1,12 @@
-.idea/
-
+# Build results
 bin/
 obj/
+
+# Visual Studio
+.vs/
+
+# JetBrains IDE
+.idea/
+
+# Resharper
+*.DotSettings.user
