@@ -1,5 +1,10 @@
 ﻿# Billiano.Audio
 
+[![ko-fi](https://img.shields.io/badge/Support_me_on-Ko--fi-red)](https://ko-fi.com/G2G1SRUJG)
+[![](https://img.shields.io/badge/Check-NAudio-white)](https://github.com/naudio/NAudio)
+[![](https://img.shields.io/badge/Check-CSCore-blue)](https://github.com/filoe/cscore)
+[![](https://img.shields.io/badge/Check-PortAudio-green)](https://portaudio.com)
+
 Collection of audio utils and library
 
 ## Features

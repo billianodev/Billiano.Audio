@@ -8,7 +8,7 @@
         <Title>Billiano.Audio.FireForget</Title>
         <Authors>Billiano</Authors>
         <RepositoryUrl>https://github.com/billianodev/Billiano.Audio</RepositoryUrl>
-        <PackageLicenseUrl>LICENSE.txt</PackageLicenseUrl>
+        <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
         <PackageReadmeFile>README.md</PackageReadmeFile>
     </PropertyGroup>
 
@@ -18,6 +18,10 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <None Include="LICENSE.txt">
+            <Pack>True</Pack>
+            <PackagePath>/</PackagePath>
+        </None>
         <None Include="README.md">
             <Pack>True</Pack>
             <PackagePath>/</PackagePath>
