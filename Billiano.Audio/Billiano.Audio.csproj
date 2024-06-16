@@ -4,7 +4,7 @@
         <TargetFramework>netstandard2.1</TargetFramework>
         <Nullable>enable</Nullable>
         <LangVersion>latest</LangVersion>
-        <Version>0.0.1-alpha</Version>
+        <Version>0.1.0-beta</Version>
         <Title>Billiano.Audio</Title>
         <Authors>Billiano</Authors>
         <RepositoryUrl>https://github.com/billianodev/Billiano.Audio</RepositoryUrl>

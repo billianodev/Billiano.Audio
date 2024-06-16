@@ -4,6 +4,10 @@ using WaveFormat = NAudio.Wave.WaveFormat;
 
 namespace Billiano.Audio;
 
+/// <summary>
+/// 
+/// </summary>
+/// <param name="source"></param>
 public class SampleSourceToProvider(ISampleSource source): ISampleProvider
 {
     /// <summary>

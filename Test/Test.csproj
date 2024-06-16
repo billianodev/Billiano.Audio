@@ -7,13 +7,7 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
-    <ItemGroup Condition=" '$(Configuration)' == 'RELEASE' ">
-      <PackageReference Include="NAudio" Version="2.2.1" />
-      <PackageReference Include="Billiano.Audio.FireForget" Version="0.0.5-alpha" />
-      <PackageReference Include="Billiano.Audio.PortAudio" Version="0.0.1-alpha" />
-    </ItemGroup>
-
-    <ItemGroup Condition=" '$(Configuration)' == 'DEBUG' ">
+    <ItemGroup>
       <ProjectReference Include="..\Billiano.Audio.FireForget\Billiano.Audio.FireForget.csproj" />
       <ProjectReference Include="..\Billiano.Audio.PortAudio\Billiano.Audio.PortAudio.csproj" />
       <ProjectReference Include="..\Billiano.Audio\Billiano.Audio.csproj" />
