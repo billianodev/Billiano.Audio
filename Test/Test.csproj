@@ -9,7 +9,7 @@
 
     <ItemGroup Condition=" '$(Configuration)' == 'RELEASE' ">
       <PackageReference Include="NAudio" Version="2.2.1" />
-      <PackageReference Include="Billiano.Audio.FireForget" Version="0.0.3-alpha" />
+      <PackageReference Include="Billiano.Audio.FireForget" Version="0.0.5-alpha" />
       <PackageReference Include="Billiano.Audio.PortAudio" Version="0.0.1-alpha" />
     </ItemGroup>
 

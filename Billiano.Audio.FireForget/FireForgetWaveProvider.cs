@@ -25,9 +25,9 @@ public class FireForgetWaveProvider(IFireForgetSource source) : IWaveProvider
     /// <returns></returns>
     public int Read(byte[] buffer, int offset, int count)
     {
-        var max = source.Buffer.ByteBuffer.Length - position;
+        var max = source.Buffer.ByteBufferLength - position;
         var length = Math.Min(max, count);
-        Array.Copy(source.Buffer.ByteBuffer, position, buffer, offset, length);
+        Buffer.BlockCopy(source.Buffer.ByteBuffer, position, buffer, offset, length);
         position += length;
         return length;
     }

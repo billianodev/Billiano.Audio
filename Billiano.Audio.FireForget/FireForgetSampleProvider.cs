@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 using NAudio.Wave;
 
 namespace Billiano.Audio.FireForget;
@@ -25,9 +26,9 @@ public class FireForgetSampleProvider(IFireForgetSource source) : ISampleProvide
     /// <returns></returns>
     public int Read(float[] buffer, int offset, int count)
     {
-        var max = source.Buffer.FloatBuffer.Length - position;
+        var max = source.Buffer.FloatBufferLength - position;
         var length = Math.Min(max, count);
-        Array.Copy(source.Buffer.FloatBuffer, position, buffer, offset, length);
+        Buffer.BlockCopy(source.Buffer.FloatBuffer, position * 4, buffer, offset * 4, length * 4);
         position += length;
         return length;
     }
