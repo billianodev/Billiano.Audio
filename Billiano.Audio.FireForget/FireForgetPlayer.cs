@@ -74,10 +74,11 @@ public class FireForgetPlayer : IDisposable
     /// </summary>
     /// <param name="source"></param>
     /// <param name="volume"></param>
-    public void Play(ISampleProvider source, float volume = 1f)
+    public ISampleProvider Play(ISampleProvider source, float volume = 1f)
     {
         source = Preprocess(source, _mixer.WaveFormat, volume);
         _mixer.AddMixerInput(source);
+        return source;
     }
     
     /// <summary>
@@ -85,9 +86,9 @@ public class FireForgetPlayer : IDisposable
     /// </summary>
     /// <param name="source"></param>
     /// <param name="volume"></param>
-    public void Play(ISampleSource source, float volume = 1f)
+    public ISampleProvider Play(ISampleSource source, float volume = 1f)
     {
-        Play(source.ToSampleProvider(), volume);
+        return Play(source.ToSampleProvider(), volume);
     }
     
     /// <summary>
@@ -95,9 +96,26 @@ public class FireForgetPlayer : IDisposable
     /// </summary>
     /// <param name="source"></param>
     /// <param name="volume"></param>
-    public void Play(IFireForgetSource source, float volume = 1f)
+    public ISampleProvider Play(IFireForgetSource source, float volume = 1f)
     {
-        Play(source.ToSampleProvider(), volume);
+        return Play(source.ToSampleProvider(), volume);
+    }
+    
+    /// <summary>
+    /// The sample provider returned by <see cref="Play(ISampleProvider,float)"/>
+    /// </summary>
+    /// <param name="provider"></param>
+    public void Stop(ISampleProvider provider)
+    {
+        _mixer.RemoveMixerInput(provider);
+    }
+    
+    /// <summary>
+    /// 
+    /// </summary>
+    public void Stop()
+    {
+        _mixer.RemoveAllMixerInputs();
     }
     
     /// <summary>

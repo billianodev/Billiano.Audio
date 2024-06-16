@@ -5,7 +5,7 @@ using CSCore.Codecs;
 
 using (var reader = CodecFactory.Instance.GetCodec("test.mp3").ToWaveProvider())
 {
-    var backend = new PortAudioOut(latency: 10);
+    var backend = new PortAudioOut();
     var source = reader.ToFireForgetSource();
     var player = new FireForgetPlayer(backend, reader.WaveFormat);
 
