@@ -18,5 +18,9 @@
       <ProjectReference Include="..\Billiano.Audio.PortAudio\Billiano.Audio.PortAudio.csproj" />
       <ProjectReference Include="..\Billiano.Audio\Billiano.Audio.csproj" />
     </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="NAudio.Wasapi" Version="2.2.1" />
+    </ItemGroup>
     
 </Project>

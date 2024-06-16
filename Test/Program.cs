@@ -1,18 +1,21 @@
-﻿using Billiano.Audio;
-using Billiano.Audio.FireForget;
+﻿using Billiano.Audio.FireForget;
 using Billiano.Audio.PortAudio;
 using CSCore.Codecs;
 
-using (var reader = CodecFactory.Instance.GetCodec("test.mp3").ToWaveProvider())
+Console.ReadLine();
+Play("test.mp3");
+Console.ReadLine();
+Play("test_too.mp3");
+Console.ReadLine();
+return;
+
+void Play(string path)
 {
-    var backend = new PortAudioOut();
+    using var reader = CodecFactory.Instance.GetCodec(path);
     var source = reader.ToFireForgetSource();
-    var player = new FireForgetPlayer(backend, reader.WaveFormat);
-
-    start:
-    Console.ReadKey(true);
-    player.Play(source);
-    goto start;
+    
+    var player = new PortAudioOut();
+    player.Init(source.ToWaveProvider());
+    player.Play();
+    player.PlaybackStopped += (sender, eventArgs) => player.Dispose();
 }
-
-

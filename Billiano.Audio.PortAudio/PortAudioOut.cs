@@ -17,13 +17,17 @@ public sealed class PortAudioOut : IWavePlayer
     /// <summary>
     /// 
     /// </summary>
-    public float Volume { get; set; }
-    
+    [Obsolete("Use VolumeSampleProvider or similar", true)]
+    public float Volume
+    {
+        get => 1f;
+        set => throw new NotSupportedException();
+    }
 
     /// <summary>
     /// 
     /// </summary>
-    public WaveFormat OutputWaveFormat { get; private set; }
+    public WaveFormat OutputWaveFormat => _provider.WaveFormat;
     
     /// <summary>
     /// 
@@ -38,14 +42,12 @@ public sealed class PortAudioOut : IWavePlayer
     // PortAudio
     private StreamParameters _streamParams;
     private Stream _stream;
-    private double? _desiredLatency;
     private double _suggestedLatency;
-    private int _frameSize;
+    private int? _desiredLatency;
+    private uint _frameSize;
     
     // Audio source
     private ISampleProvider _provider;
-    private int _sampleRate;
-    private int _channels;
     
     // Device
     private int _deviceId;
@@ -58,11 +60,30 @@ public sealed class PortAudioOut : IWavePlayer
         Pa.Initialize();
     }
 
-    public PortAudioOut(int? deviceId = null, int? latency = null)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="deviceId"></param>
+    /// <param name="latency"></param>
+    public PortAudioOut(int? deviceId, int? latency)
     {
-        Volume = 1f;
         SetDevice(deviceId ?? Pa.DefaultOutputDevice);
         _desiredLatency = latency;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="latency"></param>
+    public PortAudioOut(int? latency) : this(null, latency)
+    {
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public PortAudioOut() : this(null, 0)
+    {
     }
     
     /// <summary>
@@ -82,10 +103,13 @@ public sealed class PortAudioOut : IWavePlayer
     /// <param name="id"></param>
     public void SetDevice(int id)
     {
+        if (id == Pa.NoDevice)
+        {
+            throw new Exception("There is no device");
+        }
         _deviceId = id;
         _device = Pa.GetDeviceInfo(_deviceId);
         _suggestedLatency = _device.defaultLowOutputLatency;
-        OutputWaveFormat = WaveFormat.CreateIeeeFloatWaveFormat((int)_device.defaultSampleRate, _device.maxOutputChannels);
     }
 
     /// <summary>
@@ -97,23 +121,21 @@ public sealed class PortAudioOut : IWavePlayer
         CheckDisposed();
 
         _provider = provider.ToSampleProvider();
-        _sampleRate = provider.WaveFormat.SampleRate;
-        _channels = provider.WaveFormat.Channels;
-        _frameSize = LatencyToSampleSize(_desiredLatency ?? _suggestedLatency);
+        _frameSize = CalculateFrameSize();
 
         _streamParams = new StreamParameters()
         {
-            channelCount = _channels,
+            channelCount = _provider.WaveFormat.Channels,
             device = _deviceId,
             sampleFormat = SampleFormat.Float32,
             suggestedLatency = _suggestedLatency
         };
-   
+        
         _stream = new Stream(
             null,
             _streamParams,
-            _sampleRate,
-            (uint)_frameSize,
+            _provider.WaveFormat.SampleRate,
+            _frameSize,
             StreamFlags.NoFlag,
             StreamCallback,
             null);
@@ -132,7 +154,13 @@ public sealed class PortAudioOut : IWavePlayer
         }
         
         PlaybackState = PlaybackState.Stopped;
-        _stream.Dispose();
+        try
+        {
+            _stream.Dispose();
+        }
+        catch (PortAudioException)
+        {
+        }
         _disposed = true;
     }
     
@@ -166,6 +194,18 @@ public sealed class PortAudioOut : IWavePlayer
         Dispose();
     }
     
+    private uint CalculateFrameSize()
+    {
+        if (_desiredLatency is null or 0)
+        {
+            return Pa.FramesPerBufferUnspecified;
+        }
+        
+        var bytePerSample = OutputWaveFormat.BitsPerSample / 8;
+        var frameSize = OutputWaveFormat.ConvertLatencyToByteSize(_desiredLatency.Value) / bytePerSample;
+        return (uint)frameSize;
+    }
+    
     private void CheckDisposed()
     {
         if (_disposed)
@@ -174,13 +214,6 @@ public sealed class PortAudioOut : IWavePlayer
         }
     }
     
-    private int LatencyToSampleSize(double ms)
-    {
-        var bytesPerSecond = _provider.WaveFormat.AverageBytesPerSecond;
-        var bytesPerSample = _provider.WaveFormat.BitsPerSample / 8;
-        return (int)(ms * bytesPerSecond / bytesPerSample / 1000.0);
-    }
-
     private StreamCallbackResult StreamCallback(
         IntPtr input,
         IntPtr output,
@@ -189,25 +222,10 @@ public sealed class PortAudioOut : IWavePlayer
         StreamCallbackFlags statusFlags,
         IntPtr userDataPtr)
     {
-        // Multiply by two or else it will sound weird (idk why and how this works lol)
-        var data = new float[frameCount * 2];
+        var data = new float[frameCount * _provider.WaveFormat.Channels];
         var count = _provider.Read(data, 0, data.Length);
 
-        if (Volume == 1f)
-        {
-            Marshal.Copy(data, 0, output, data.Length);
-        }
-        else
-        {
-            unsafe
-            {
-                var buffer = (float*)output;
-                foreach (var value in data)
-                {
-                    *buffer++ = value * Volume;
-                }
-            }
-        }
+        Marshal.Copy(data, 0, output, data.Length);
 
         return count == 0 ? StreamCallbackResult.Complete : StreamCallbackResult.Continue;
     }   
