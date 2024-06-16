@@ -9,7 +9,7 @@ Support both CSCore and NAudio
 ## Example
 
 ```csharp
-using (var reader = CodecFactory.Instance.GetCodec("spacebar.mp3").ToWaveProvider())
+using (var reader = CodecFactory.Instance.GetCodec("test.mp3").ToWaveProvider())
 {
     using (var player = new FireForgetPlayer(new WaveOutEvent(), reader.WaveFormat))
     {

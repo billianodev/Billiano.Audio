@@ -1,0 +1,41 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.1</TargetFramework>
+        <LangVersion>latest</LangVersion>
+        <Nullable>enable</Nullable>
+        <Version>0.0.1-alpha</Version>
+        <Title>Billiano.Audio.PortAudio</Title>
+        <Authors>Billiano</Authors>
+        <RepositoryUrl>https://github.com/billianodev/Billiano.Audio</RepositoryUrl>
+        <PackageLicenseUrl>LICENSE.txt</PackageLicenseUrl>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+        <DebugSymbols>true</DebugSymbols>
+        <DocumentationFile>bin\Release\Billiano.Audio.PortAudio.xml</DocumentationFile>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <None Include="README.md">
+            <Pack>True</Pack>
+            <PackagePath>/</PackagePath>
+        </None>
+    </ItemGroup>
+
+    <ItemGroup Condition=" '$(Configuration)' == 'Release' ">
+        <PackageReference Include="Billiano.Audio" Version="0.0.1-alpha" />
+    </ItemGroup>
+
+    <ItemGroup Condition=" '$(Configuration)' == 'Debug' ">
+        <ProjectReference Include="..\Billiano.Audio\Billiano.Audio.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="PortAudioSharp2" Version="1.0.2" />
+    </ItemGroup>
+
+
+</Project>
