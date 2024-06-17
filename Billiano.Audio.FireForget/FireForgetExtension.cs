@@ -1,4 +1,5 @@
-﻿using CSCore;
+﻿using Billiano.Audio.CSCoreSupport;
+using CSCore;
 using NAudio.Wave;
 
 namespace Billiano.Audio.FireForget;
