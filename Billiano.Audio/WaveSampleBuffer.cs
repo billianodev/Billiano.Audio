@@ -5,10 +5,10 @@ using System.Runtime.InteropServices;
 namespace Billiano.Audio.FireForget;
 
 /// <summary>
-/// 
+/// Convert between bytes and float array
 /// </summary>
 [StructLayout(LayoutKind.Explicit)]
-public struct WaveSampleBuffer
+public readonly struct WaveSampleBuffer
 {
     /// <summary>
     /// 

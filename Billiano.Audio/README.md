@@ -4,5 +4,17 @@
 [![](https://img.shields.io/badge/Check-NAudio-white)](https://github.com/naudio/NAudio)
 [![](https://img.shields.io/badge/Check-CSCore-blue)](https://github.com/filoe/cscore)
 
+General purpose audio utility library
 
-Combine the best of both NAudio and CSCore by providing adapter nor converter to similar types that exists in both library while also provide several new Utilities class
+## Features
+
+- NAudio-CSCore converter, provides two-way conversion for similar classes/interfaces between both audio library
+
+
+- CodecFactory, reimplement more cross-platform friendly CSCore `CodecFactory`
+
+
+- ResamplingSampleProvider, combine NAudio `WdlResamplingSampleProvider`, `MonoToStereoSampleProvider`, and `StereoToMonoSampleProvider`
+
+
+- WaveSampleBuffer, unsafely and memory efficiently convert between `byte[]` and `float[]`

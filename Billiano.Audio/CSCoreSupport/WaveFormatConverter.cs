@@ -1,7 +1,7 @@
 ﻿using CSCore;
 using NAudio.Wave;
 
-namespace Billiano.Audio;
+namespace Billiano.Audio.CSCoreSupport;
 
 /// <summary>
 /// 

@@ -3,7 +3,7 @@ using CSCore;
 using NAudio.Wave;
 using WaveFormat = CSCore.WaveFormat;
 
-namespace Billiano.Audio;
+namespace Billiano.Audio.CSCoreSupport;
 
 /// <summary>
 /// 

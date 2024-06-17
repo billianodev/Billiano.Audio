@@ -24,28 +24,22 @@ public class ResamplingSampleProvider : ISampleProvider
     /// <exception cref="NotSupportedException"></exception>
     public ResamplingSampleProvider(ISampleProvider source, WaveFormat targetWaveFormat)
     {
-        _source = source;
-        
         if (source.WaveFormat.SampleRate != targetWaveFormat.SampleRate)
         {
-            _source = new WdlResamplingSampleProvider(_source, targetWaveFormat.SampleRate);
+            source = new WdlResamplingSampleProvider(source, targetWaveFormat.SampleRate);
         }
         
         if (source.WaveFormat.Channels != targetWaveFormat.Channels)
         {
-            if (source.WaveFormat.Channels == 1 && targetWaveFormat.Channels == 2)
+            source = (source.WaveFormat.Channels, targetWaveFormat.Channels) switch
             {
-                _source = new MonoToStereoSampleProvider(_source);
-            }
-            else if (source.WaveFormat.Channels == 2 && targetWaveFormat.Channels == 1)
-            {
-                _source = new StereoToMonoSampleProvider(_source);
-            }
-            else
-            {
-                throw new NotSupportedException();
-            }
+                (1, 2) => new MonoToStereoSampleProvider(source),
+                (2, 1) => new StereoToMonoSampleProvider(source),
+                _ => throw new NotSupportedException()
+            };
         }
+
+        _source = source;
     }
 
     /// <summary>

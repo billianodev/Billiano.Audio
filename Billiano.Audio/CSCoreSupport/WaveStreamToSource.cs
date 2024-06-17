@@ -1,38 +1,35 @@
-﻿using System;
-using CSCore;
+﻿using CSCore;
 using NAudio.Wave;
 using WaveFormat = CSCore.WaveFormat;
 
-namespace Billiano.Audio;
+namespace Billiano.Audio.CSCoreSupport;
 
 /// <summary>
 /// 
 /// </summary>
-/// <param name="provider"></param>
-public class WaveProviderToSource(IWaveProvider provider) : IWaveSource
+/// <param name="source"></param>
+public class WaveStreamToSource(WaveStream source): IWaveSource
 {
     /// <summary>
     /// 
     /// </summary>
-    public bool CanSeek => false;
+    public bool CanSeek => source.CanSeek;
     
     /// <summary>
     /// 
     /// </summary>
-    public WaveFormat WaveFormat => provider.WaveFormat.ToCSCore();
+    public WaveFormat WaveFormat => source.WaveFormat.ToCSCore();
     
     /// <summary>
     /// 
     /// </summary>
-    /// <exception cref="NotSupportedException"></exception>
-    public long Position { get => throw new NotSupportedException(); set => throw new NotSupportedException(); }
+    public long Position { get => source.Position; set => source.Position = value; }
     
     /// <summary>
     /// 
     /// </summary>
-    /// <exception cref="NotSupportedException"></exception>
-    public long Length => throw new NotSupportedException();
-
+    public long Length => source.Length;
+    
     /// <summary>
     /// 
     /// </summary>
@@ -42,7 +39,7 @@ public class WaveProviderToSource(IWaveProvider provider) : IWaveSource
     /// <returns></returns>
     public int Read(byte[] buffer, int offset, int count)
     {
-        return provider.Read(buffer, offset, count);
+        return source.Read(buffer, offset, count);
     }
 
     /// <summary>
@@ -50,5 +47,6 @@ public class WaveProviderToSource(IWaveProvider provider) : IWaveSource
     /// </summary>
     public void Dispose()
     {
+        source.Dispose();
     }
 }
