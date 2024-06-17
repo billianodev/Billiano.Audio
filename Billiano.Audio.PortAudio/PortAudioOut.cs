@@ -202,7 +202,7 @@ public sealed class PortAudioOut : IWavePlayer
         }
         
         var bytePerSample = OutputWaveFormat.BitsPerSample / 8;
-        var frameSize = OutputWaveFormat.ConvertLatencyToByteSize(_desiredLatency.Value) / bytePerSample;
+        var frameSize = OutputWaveFormat.ConvertLatencyToByteSize(_desiredLatency.Value) / bytePerSample / OutputWaveFormat.Channels;
         return (uint)frameSize;
     }
     

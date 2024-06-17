@@ -4,7 +4,7 @@
         <TargetFramework>netstandard2.1</TargetFramework>
         <LangVersion>latest</LangVersion>
         <Nullable>enable</Nullable>
-        <Version>0.1.0-beta</Version>
+        <Version>0.1.1-beta</Version>
         <Title>Billiano.Audio.PortAudio</Title>
         <Authors>Billiano</Authors>
         <RepositoryUrl>https://github.com/billianodev/Billiano.Audio</RepositoryUrl>
@@ -28,17 +28,9 @@
         </None>
     </ItemGroup>
 
-    <ItemGroup Condition=" '$(Configuration)' == 'Release' ">
-        <PackageReference Include="Billiano.Audio" Version="0.0.1-alpha" />
-    </ItemGroup>
-
-    <ItemGroup Condition=" '$(Configuration)' == 'Debug' ">
-        <ProjectReference Include="..\Billiano.Audio\Billiano.Audio.csproj" />
-    </ItemGroup>
-
     <ItemGroup>
+      <PackageReference Include="NAudio.Core" Version="2.2.1" />
       <PackageReference Include="PortAudioSharp2" Version="1.0.2" />
     </ItemGroup>
-
 
 </Project>
