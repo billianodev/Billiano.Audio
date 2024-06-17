@@ -1,6 +1,13 @@
-﻿using Billiano.Audio.FireForget;
+﻿using Billiano.Audio;
+using Billiano.Audio.FireForget;
 using Billiano.Audio.PortAudio;
-using CSCore.Codecs;
+
+/*
+ * This project is a sample code to Billiano.Audio packages
+ * Run this sample only in DEBUG mode!
+ */
+
+var codecFactory = CodecFactory.CreateDefault();
 
 Console.ReadLine();
 Play("test.mp3");
@@ -11,7 +18,7 @@ return;
 
 void Play(string path)
 {
-    using var reader = CodecFactory.Instance.GetCodec(path);
+    using var reader = codecFactory.GetCodec(path);
     var source = reader.ToFireForgetSource();
     
     var player = new PortAudioOut();
