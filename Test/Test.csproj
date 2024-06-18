@@ -8,13 +8,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Billiano.Audio.FireForget\Billiano.Audio.FireForget.csproj" />
-      <ProjectReference Include="..\Billiano.Audio.PortAudio\Billiano.Audio.PortAudio.csproj" />
       <ProjectReference Include="..\Billiano.Audio\Billiano.Audio.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <PackageReference Include="NAudio.Wasapi" Version="2.2.1" />
+      <ProjectReference Include="..\Billiano.Audio.PortAudio\Billiano.Audio.PortAudio.csproj" />
     </ItemGroup>
     
 </Project>
