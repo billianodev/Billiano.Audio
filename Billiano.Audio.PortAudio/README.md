@@ -4,12 +4,12 @@
 [![](https://img.shields.io/badge/Check-NAudio-white)](https://github.com/naudio/NAudio)
 [![](https://img.shields.io/badge/Check-PortAudio-green)](https://portaudio.com)
 
-Adapter for PortAudioSharp and NAudio `IWavePlayer`
+Implements PortAudioSharp as NAudio `IWavePlayer`
 
 ## Example
 
 ```csharp
-using (var reader = CodecFactory.Instance.GetCodec("test.mp3").ToWaveProvider())
+using (var reader = new WaveFileReader("test.wav"))
 {
     var backend = new PortAudioOut();
     player.Init(reader);
@@ -17,3 +17,8 @@ using (var reader = CodecFactory.Instance.GetCodec("test.mp3").ToWaveProvider())
 }
 ```
 
+---
+
+## Important
+
+⚠️ **While this project is in BETA state, it will often receive code breaking update! Sorry for the inconvenience..** ⚠️

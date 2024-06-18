@@ -53,6 +53,7 @@ public sealed class PortAudioOut : IWavePlayer
     private int _deviceId;
     private DeviceInfo _device;
 
+    private bool _initialized;
     private bool _disposed;
     
     static PortAudioOut()
@@ -82,7 +83,7 @@ public sealed class PortAudioOut : IWavePlayer
     /// <summary>
     /// 
     /// </summary>
-    public PortAudioOut() : this(null, 0)
+    public PortAudioOut() : this(null, null)
     {
     }
     
@@ -118,7 +119,8 @@ public sealed class PortAudioOut : IWavePlayer
     /// <param name="provider"></param>
     public void Init(IWaveProvider provider)
     {
-        CheckDisposed();
+        ThrowIfInitialized();
+        ThrowIfDisposed();
 
         _provider = provider.ToSampleProvider();
         _frameSize = CalculateFrameSize();
@@ -141,6 +143,7 @@ public sealed class PortAudioOut : IWavePlayer
             null);
         
         _stream.SetFinishedCallback(StreamFinishedCallback);
+        _initialized = true;
     }
 
     /// <summary>
@@ -153,7 +156,7 @@ public sealed class PortAudioOut : IWavePlayer
             return;
         }
         
-        PlaybackState = PlaybackState.Stopped;
+        Stop();
         try
         {
             _stream.Dispose();
@@ -169,7 +172,8 @@ public sealed class PortAudioOut : IWavePlayer
     /// </summary>
     public void Play()
     {
-        CheckDisposed();
+        ThrowIfNotInitialized();
+        ThrowIfDisposed();
         
         PlaybackState = PlaybackState.Playing;
         _stream.Start();
@@ -180,7 +184,8 @@ public sealed class PortAudioOut : IWavePlayer
     /// </summary>
     public void Pause()
     {
-        CheckDisposed();
+        ThrowIfNotInitialized();
+        ThrowIfDisposed();
         
         PlaybackState = PlaybackState.Paused;
         _stream.Stop();
@@ -191,7 +196,9 @@ public sealed class PortAudioOut : IWavePlayer
     /// </summary>
     public void Stop()
     {
-        Dispose();
+        ThrowIfNotInitialized();
+        PlaybackState = PlaybackState.Stopped;
+        _stream.Abort();
     }
     
     private uint CalculateFrameSize()
@@ -206,11 +213,27 @@ public sealed class PortAudioOut : IWavePlayer
         return (uint)frameSize;
     }
     
-    private void CheckDisposed()
+    private void ThrowIfDisposed()
     {
         if (_disposed)
         {
             throw new ObjectDisposedException(nameof(PortAudioOut));
+        }
+    }
+    
+    private void ThrowIfInitialized()
+    {
+        if (_initialized)
+        {
+            throw new InvalidOperationException("Has been initialized!");
+        }
+    }
+    
+    private void ThrowIfNotInitialized()
+    {
+        if (!_initialized)
+        {
+            throw new InvalidOperationException("Not initialized!");
         }
     }
     
