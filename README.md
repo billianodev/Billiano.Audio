@@ -1,31 +1,24 @@
 ﻿# Billiano.Audio
 
 [![ko-fi](https://img.shields.io/badge/Support_me_on-Ko--fi-red)](https://ko-fi.com/G2G1SRUJG)
-[![](https://img.shields.io/badge/Check-NAudio-white)](https://github.com/naudio/NAudio)
-[![](https://img.shields.io/badge/Check-CSCore-blue)](https://github.com/filoe/cscore)
-[![](https://img.shields.io/badge/Check-PortAudio-green)](https://portaudio.com)
 
 Collection of audio utils and library
 
-- Billiano.Audio
+### Billiano.Audio
 
-  - Combine .NET audio libraries
-      - NAudio (better for audio processing, imo)
-      - CSCore (better for encoding/decoding, imo)
-    
-  - Read common codecs (through `CodecFactory`)
-      - MP3
-      - WAVE
-      - FLAC
-      - AIFF
-      - AAC
-      - Ogg
-      - More by implement your own with `CodecFactory.Register`
+- Fire forget audio player
+- Wave caching with `WaveCache` to reuse `ISampleProvider` for multiple usage
+- Read common codecs (through `CodecFactory`)
 
+### Billiano.Audio.CSCore
+Combine NAudio.Core with CSCore by providing converter and adapter classes
 
-- Billiano.FireForget \
-  Fire forget audio player
+### Billiano.Audio.PortAudio
 
+Implements portaudio, a cross platform desktop audio IO library as NAudio `IWavePlayer`
 
-- Billiano.PortAudio \
-  Cross platform desktop audio IO library
+---
+
+## Important
+
+⚠️ **While this project is in BETA state, it will often receive code breaking update! Sorry for the inconvenience** ⚠️
