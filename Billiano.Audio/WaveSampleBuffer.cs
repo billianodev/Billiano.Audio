@@ -39,8 +39,9 @@ public readonly struct WaveSampleBuffer
     /// <param name="buffer"></param>
     public WaveSampleBuffer(byte[] buffer)
     {
-        var align = buffer.Length % 4;
-        ByteBufferLength = align == 0 ? buffer.Length : buffer.Length - align + 4;
+        var bufferLength = buffer.Length;
+        var align = bufferLength % 4;
+        ByteBufferLength = align == 0 ? bufferLength : bufferLength - align + 4;
 
         var copy = (Span<byte>)stackalloc byte[ByteBufferLength];
         buffer.CopyTo(copy);
@@ -48,6 +49,21 @@ public readonly struct WaveSampleBuffer
         ByteBuffer = copy.ToArray();
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="buffer"></param>
+    public WaveSampleBuffer(ref byte[] buffer)
+    {
+        var bufferLength = buffer.Length;
+        var align = bufferLength % 4;
+        ByteBufferLength = align == 0 ? bufferLength : bufferLength - align + 4;
+        
+        Array.Resize(ref buffer, ByteBufferLength);
+
+        ByteBuffer = buffer;
+    }
+    
     /// <summary>
     /// 
     /// </summary>

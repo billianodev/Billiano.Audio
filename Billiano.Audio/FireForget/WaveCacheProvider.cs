@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.InteropServices;
 using NAudio.Wave;
 
 namespace Billiano.Audio.FireForget;
@@ -8,15 +7,31 @@ namespace Billiano.Audio.FireForget;
 /// 
 /// </summary>
 /// <param name="source"></param>
-public class FireForgetSampleProvider(IFireForgetSource source) : ISampleProvider
+public class WaveCacheProvider(WaveCache source) : IWaveProvider, ISampleProvider
 {
     /// <summary>
     /// 
     /// </summary>
     public WaveFormat WaveFormat => source.WaveFormat;
-
+    
     private int position;
-
+    
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="buffer"></param>
+    /// <param name="offset"></param>
+    /// <param name="count"></param>
+    /// <returns></returns>
+    public int Read(byte[] buffer, int offset, int count)
+    {
+        var max = source.Buffer.ByteBufferLength - position;
+        var length = Math.Min(max, count);
+        Buffer.BlockCopy(source.Buffer.ByteBuffer, position, buffer, offset, length);
+        position += length;
+        return length;
+    }
+    
     /// <summary>
     /// 
     /// </summary>

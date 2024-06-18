@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using CSCore;
+using NAudio.Wave;
 
 namespace Billiano.Audio;
 
@@ -13,8 +13,13 @@ public class CodecFactory
     /// <summary>
     /// 
     /// </summary>
-    public IEnumerable<string> SupportedFileExtensions => _entries.Keys;
+    public CodecProvider? FallbackCodec { get; set; }
     
+    /// <summary>
+    /// 
+    /// </summary>
+    public IEnumerable<string> SupportedFileExtensions => _entries.Keys;
+
     private readonly Dictionary<string, CodecProvider> _entries;
 
     /// <summary>
@@ -25,10 +30,16 @@ public class CodecFactory
         _entries = new Dictionary<string, CodecProvider>(StringComparer.OrdinalIgnoreCase);
     }
     
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
     public static CodecFactory CreateDefault()
     {
         var factory = new CodecFactory();
-        CodecFactoryDefaults.RegisterAll(factory);
+        factory.RegisterMp3();
+        factory.RegisterWave();
+        factory.RegisterVorbis();
         return factory;
     }
     
@@ -63,7 +74,7 @@ public class CodecFactory
     public CodecProvider GetCodecProvider(string filePathOrExtension)
     {
         var fileExtension = GetFileExtension(filePathOrExtension);
-        return GetCodecProviderInternal(fileExtension);
+        return GetCodecProviderOrDefault(fileExtension);
     }
     
     /// <summary>
@@ -71,22 +82,23 @@ public class CodecFactory
     /// </summary>
     /// <param name="filePath"></param>
     /// <returns></returns>
-    public IWaveSource GetCodec(string filePath)
+    public WaveStream GetCodec(string filePath)
     {
-        var extension = GetFileExtension(filePath);
-        var provider = GetCodecProviderInternal(extension);
+        var extension = GetFileExtensionFromPath(filePath);
+        var provider = GetCodecProviderOrDefault(extension);
         return provider(filePath);
     }
     
-    private CodecProvider? TryGetCodecProviderInternal(string fileExtension)
+    private CodecProvider? TryGetCodecProvider(string fileExtension)
     {
         _entries.TryGetValue(fileExtension, out var result);
         return result;
     }
     
-    private CodecProvider GetCodecProviderInternal(string fileExtension)
+    private CodecProvider GetCodecProviderOrDefault(string fileExtension)
     {
-        return TryGetCodecProviderInternal(fileExtension)
+        return TryGetCodecProvider(fileExtension)
+            ?? FallbackCodec
             ?? throw new KeyNotFoundException(fileExtension);
     }
     
@@ -103,4 +115,7 @@ public class CodecFactory
     }
 }
 
-public delegate IWaveSource CodecProvider(string filePath);
+/// <summary>
+/// 
+/// </summary>
+public delegate WaveStream CodecProvider(string filePath);

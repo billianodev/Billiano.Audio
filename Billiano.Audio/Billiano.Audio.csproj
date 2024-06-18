@@ -1,10 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>netstandard2.1</TargetFramework>
-        <Nullable>enable</Nullable>
+        <TargetFramework>netstandard2.0</TargetFramework>
         <LangVersion>latest</LangVersion>
-        <Version>0.2.0-beta</Version>
+        <Nullable>enable</Nullable>
+        <Version>0.3.0-beta</Version>
         <Title>Billiano.Audio</Title>
         <Authors>Billiano</Authors>
         <RepositoryUrl>https://github.com/billianodev/Billiano.Audio</RepositoryUrl>
@@ -13,9 +13,14 @@
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-      <DebugSymbols>true</DebugSymbols>
-      <DocumentationFile>bin\Release\Billiano.Audio.xml</DocumentationFile>
+        <DebugSymbols>true</DebugSymbols>
+        <DocumentationFile>bin\Release\Billiano.Audio.xml</DocumentationFile>
     </PropertyGroup>
+
+    <!-- Exclude annoying readme file from other packages -->
+    <ItemGroup>
+        <None Remove="**/README.md" />
+    </ItemGroup>
     
     <ItemGroup>
         <None Include="LICENSE.txt">
@@ -29,9 +34,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="CSCore" Version="1.2.1.2" />
-      <PackageReference Include="CSCore.Ogg" Version="1.0.0" />
       <PackageReference Include="NAudio.Core" Version="2.2.1" />
+      <PackageReference Include="NAudio.Vorbis" Version="1.5.0" />
       <PackageReference Include="NLayer.NAudioSupport" Version="1.4.0" />
     </ItemGroup>
 
