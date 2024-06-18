@@ -1,7 +1,7 @@
 ﻿using CSCore;
 using NAudio.Wave;
 
-namespace Billiano.Audio.CSCoreSupport;
+namespace Billiano.Audio;
 
 /// <summary>
 /// 
@@ -13,7 +13,7 @@ public static class WaveFormatConverter
     /// </summary>
     /// <param name="waveFormat"></param>
     /// <returns></returns>
-    public static NAudio.Wave.WaveFormat ToNAudio(this CSCore.WaveFormat waveFormat)
+    public static NAudio.Wave.WaveFormat ToNAudio(CSCore.WaveFormat waveFormat)
     {
         return NAudio.Wave.WaveFormat.CreateCustomFormat(
             (WaveFormatEncoding)waveFormat.WaveFormatTag,
@@ -29,7 +29,7 @@ public static class WaveFormatConverter
     /// </summary>
     /// <param name="waveFormat"></param>
     /// <returns></returns>
-    public static CSCore.WaveFormat ToCSCore(this NAudio.Wave.WaveFormat waveFormat)
+    public static CSCore.WaveFormat ToCSCore(NAudio.Wave.WaveFormat waveFormat)
     {
         return new CSCore.WaveFormat(
             waveFormat.SampleRate,

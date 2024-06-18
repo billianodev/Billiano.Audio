@@ -1,15 +1,14 @@
 ﻿using System;
 using CSCore;
 using NAudio.Wave;
-using WaveFormat = CSCore.WaveFormat;
 
-namespace Billiano.Audio.CSCoreSupport;
+namespace Billiano.Audio;
 
 /// <summary>
 /// 
 /// </summary>
 /// <param name="provider"></param>
-public class WaveProviderToSource(IWaveProvider provider) : IWaveSource
+public sealed class SampleProviderToSource(ISampleProvider provider) : ISampleSource
 {
     /// <summary>
     /// 
@@ -19,7 +18,7 @@ public class WaveProviderToSource(IWaveProvider provider) : IWaveSource
     /// <summary>
     /// 
     /// </summary>
-    public WaveFormat WaveFormat => provider.WaveFormat.ToCSCore();
+    public CSCore.WaveFormat WaveFormat => WaveFormatConverter.ToCSCore(provider.WaveFormat);
     
     /// <summary>
     /// 
@@ -40,7 +39,7 @@ public class WaveProviderToSource(IWaveProvider provider) : IWaveSource
     /// <param name="offset"></param>
     /// <param name="count"></param>
     /// <returns></returns>
-    public int Read(byte[] buffer, int offset, int count)
+    public int Read(float[] buffer, int offset, int count)
     {
         return provider.Read(buffer, offset, count);
     }

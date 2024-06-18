@@ -1,4 +1,4 @@
-﻿using Billiano.Audio.CSCoreSupport;
+﻿using Billiano.Audio;
 using CSCore;
 using NAudio.Wave;
 using WaveFormat = NAudio.Wave.WaveFormat;
@@ -9,12 +9,12 @@ namespace Billiano.Audio;
 /// 
 /// </summary>
 /// <param name="source"></param>
-public class WaveSourceToProvider(IWaveSource source): WaveStream
+public sealed class WaveSourceToProvider(IWaveSource source): WaveStream
 {
     /// <summary>
     /// 
     /// </summary>
-    public override WaveFormat WaveFormat => source.WaveFormat.ToNAudio();
+    public override WaveFormat WaveFormat => WaveFormatConverter.ToNAudio(source.WaveFormat);
     
     /// <summary>
     /// 
