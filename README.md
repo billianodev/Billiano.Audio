@@ -10,6 +10,10 @@ Collection of audio utils and library
 - Wave caching with `WaveCache` to reuse `ISampleProvider` for multiple usage
 - Read common codecs (through `CodecFactory`)
 
+### Billiano.Audio.Codecs.*
+
+Add extra codecs to Billiano.Audio `CodecFactory` through extension method
+
 ### Billiano.Audio.CSCore
 Combine NAudio.Core with CSCore by providing converter and adapter classes
 

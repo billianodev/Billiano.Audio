@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Billiano.Audio.PortAudio", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Billiano.Audio.CSCore", "Billiano.Audio.CSCore\Billiano.Audio.CSCore.csproj", "{EE6F4E28-CAEF-4665-A673-0C69AF97CFB5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Billiano.Audio.Codecs.CSCore", "Billiano.Audio.Codecs.CSCore\Billiano.Audio.Codecs.CSCore.csproj", "{18CB0B91-CDE2-4756-B78E-12DE22B6EAAC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,5 +37,9 @@ Global
 		{EE6F4E28-CAEF-4665-A673-0C69AF97CFB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EE6F4E28-CAEF-4665-A673-0C69AF97CFB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EE6F4E28-CAEF-4665-A673-0C69AF97CFB5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{18CB0B91-CDE2-4756-B78E-12DE22B6EAAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18CB0B91-CDE2-4756-B78E-12DE22B6EAAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18CB0B91-CDE2-4756-B78E-12DE22B6EAAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18CB0B91-CDE2-4756-B78E-12DE22B6EAAC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

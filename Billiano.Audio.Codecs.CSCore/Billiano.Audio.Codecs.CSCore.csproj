@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <LangVersion>latest</LangVersion>
+        <Nullable>enable</Nullable>
+        <Version>0.1.0-beta</Version>
+        <Title>Billiano.Audio.Codecs.CSCore</Title>
+        <Authors>Billiano</Authors>
+        <RepositoryUrl>https://github.com/billianodev/Billiano.Audio</RepositoryUrl>
+        <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <None Update="LICENSE.txt">
+        <Pack>True</Pack>
+        <PackagePath>/</PackagePath>
+      </None>
+      <None Update="README.md">
+        <Pack>True</Pack>
+        <PackagePath>/</PackagePath>
+      </None>
+    </ItemGroup>
+
+    <ItemGroup Condition=" '$(Configuration)'=='RELEASE' ">
+      <PackageReference Include="Billiano.Audio" Version="0.3.1-beta" />
+      <PackageReference Include="Billiano.Audio.CSCore" Version="0.1.0-beta" />
+    </ItemGroup>
+    
+    <ItemGroup Condition=" '$(Configuration)'=='DEBUG' ">
+        <ProjectReference Include="../Billiano.Audio/Billiano.Audio.csproj" />
+        <ProjectReference Include="../Billiano.Audio.CSCore/Billiano.Audio.CSCore.csproj" />
+    </ItemGroup> 
+
+</Project>
