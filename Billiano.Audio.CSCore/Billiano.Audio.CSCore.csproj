@@ -14,7 +14,7 @@
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
         <DebugSymbols>true</DebugSymbols>
-        <DocumentationFile>bin\Release\Billiano.Audio.xml</DocumentationFile>
+        <DocumentationFile>bin\Release\Billiano.Audio.CSCore.xml</DocumentationFile>
     </PropertyGroup>
 
     <ItemGroup>
