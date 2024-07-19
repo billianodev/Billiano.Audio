@@ -9,12 +9,9 @@
 #define USE_FIRE_FORGET
 
 using Billiano.Audio;
+using Billiano.Audio.FireForget;
 using Billiano.Audio.PortAudio;
 using NAudio.Wave;
-
-#if USE_FIRE_FORGET
-using Billiano.Audio.FireForget;
-#endif
 
 var codecFactory = CodecFactory.CreateDefault();
 
@@ -26,7 +23,7 @@ using var fireForgetPlayer = new FireForgetPlayer(player, new WaveFormat(44100, 
 Console.ReadLine();
 Play("test.mp3");
 Console.ReadLine();
-Play("test_too.mp3");
+Play("test_tts.mp3");
 Console.ReadLine();
 return;
 
