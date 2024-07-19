@@ -5,7 +5,7 @@ namespace Billiano.Audio.FireForget;
 /// <summary>
 /// 
 /// </summary>
-public class FireForgetPlayer : FireForgetPlayerBase
+public sealed class FireForgetPlayer : FireForgetPlayerBase
 {
     /// <summary>
     /// 

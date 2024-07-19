@@ -8,18 +8,18 @@ namespace Billiano.Audio.FireForget;
 /// <summary>
 /// Cache audio data
 /// </summary>
-public class WaveCache
+public sealed class WaveCache
 {
     /// <summary>
     /// 
     /// </summary>
     public WaveSampleBuffer Buffer { get; }
-    
+
     /// <summary>
     /// 
     /// </summary>
     public WaveFormat WaveFormat { get; }
-    
+
     private WaveCache(WaveSampleBuffer buffer, WaveFormat waveFormat)
     {
         Buffer = buffer;
@@ -36,7 +36,7 @@ public class WaveCache
     {
         return new WaveCache(new WaveSampleBuffer(data), waveFormat);
     }
-    
+
     /// <summary>
     /// 
     /// </summary>
@@ -47,7 +47,7 @@ public class WaveCache
     {
         return new WaveCache(new WaveSampleBuffer(data), waveFormat);
     }
-    
+
     /// <summary>
     /// 
     /// </summary>
@@ -72,12 +72,12 @@ public class WaveCache
         int count;
         while ((count = provider.Read(buffer, 0, buffer.Length)) > 0)
         {
-            list.AddRange(buffer.AsSpan(count).ToArray());
+            list.AddRange(buffer.AsSpan(0, count).ToArray());
         }
-        
+
         return CreateFromRaw(list.ToArray(), provider.WaveFormat);
     }
-    
+
     /// <summary>
     /// 
     /// </summary>
@@ -91,9 +91,9 @@ public class WaveCache
         int count;
         while ((count = provider.Read(buffer, 0, buffer.Length)) > 0)
         {
-            list.AddRange(buffer.AsSpan(count).ToArray());
+            list.AddRange(buffer.AsSpan(0, count).ToArray());
         }
-        
+
         return CreateFromRaw(list.ToArray(), provider.WaveFormat);
     }
 }

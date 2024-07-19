@@ -22,17 +22,6 @@ public static class FireForgetPlayerExtension
             Volume = volume
         });
     }
-    
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="player"></param>
-    /// <param name="cache"></param>
-    /// <returns></returns>
-    public static ISampleProvider Play(this FireForgetPlayerBase player, WaveCache cache)
-    {
-        return player.Play(cache.ToSampleProvider());
-    }
 
     /// <summary>
     /// 
