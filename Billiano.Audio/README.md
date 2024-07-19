@@ -7,17 +7,17 @@ General purpose audio utility library
 
 ## Features
 
-- CodecFactory, reimplement more cross-platform friendly CSCore `CodecFactory`
+- `CodecFactory`, reimplement more cross-platform friendly CSCore `CodecFactory`
     - WAVE (from NAudio.Core)
     - MP3 (from NLayer.NAudioSupport)
     - Vorbis (from NAudio.Vorbis)
-    - More from Billiano.Audio.Codecs.* packages or by implementing your own with `CodecFactory.Register`
+    - More from Billiano.Audio.Codecs packages or by implementing your own with `CodecFactory.Register`
 
 
-- ResamplingSampleProvider, combine NAudio `WdlResamplingSampleProvider`, `MonoToStereoSampleProvider`, and `StereoToMonoSampleProvider`
+- `FireForgetPlayer` and `WaveCache`, cache and reuse audio to be player repeatedly
 
 
-- WaveSampleBuffer, unsafely and memory efficiently convert between `byte[]` and `float[]`
+- `ResamplingSampleProvider`, combine NAudio `WdlResamplingSampleProvider`, `MonoToStereoSampleProvider`, and `StereoToMonoSampleProvider`
 
 ---
 

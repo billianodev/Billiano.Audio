@@ -23,6 +23,11 @@ public static class FireForgetPlayerExtension
         });
     }
 
+    public static ISampleProvider Play(this FireForgetPlayerBase player, WaveCache cache)
+    {
+        return player.Play(cache.ToSampleProvider());
+    }
+
     /// <summary>
     /// 
     /// </summary>

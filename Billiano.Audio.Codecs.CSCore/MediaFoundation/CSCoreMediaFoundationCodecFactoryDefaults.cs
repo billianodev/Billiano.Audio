@@ -33,6 +33,10 @@ public static class CSCoreMediaFoundationCodecFactoryDefaults
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="factory"></param>
     public static void TryRegisterWMA(this CodecFactory factory)
     {
         try
@@ -48,6 +52,10 @@ public static class CSCoreMediaFoundationCodecFactoryDefaults
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="factory"></param>
     public static void TryRegisterMp1(this CodecFactory factory)
     {
         if (Mp1Decoder.IsSupported)
@@ -57,6 +65,10 @@ public static class CSCoreMediaFoundationCodecFactoryDefaults
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="factory"></param>
     public static void TryRegisterMp2(this CodecFactory factory)
     {
         if (Mp2Decoder.IsSupported)
@@ -66,6 +78,10 @@ public static class CSCoreMediaFoundationCodecFactoryDefaults
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="factory"></param>
     public static void TryRegisterDDP(this CodecFactory factory)
     {
         if (DDPDecoder.IsSupported)

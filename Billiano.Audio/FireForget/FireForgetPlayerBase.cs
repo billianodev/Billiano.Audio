@@ -16,7 +16,7 @@ public abstract class FireForgetPlayerBase : IDisposable
 
     private readonly IDisposable _player;
     private readonly MixingSampleProvider _mixer;
-    
+
     /// <summary>
     /// 
     /// </summary>
@@ -25,7 +25,7 @@ public abstract class FireForgetPlayerBase : IDisposable
     protected FireForgetPlayerBase(IWavePlayer player, WaveFormat waveFormat)
     {
         _player = player;
-        
+
         _mixer = new MixingSampleProvider(WaveFormat.CreateIeeeFloatWaveFormat(waveFormat.SampleRate, waveFormat.Channels))
         {
             ReadFully = true
@@ -44,7 +44,7 @@ public abstract class FireForgetPlayerBase : IDisposable
     {
         return provider;
     }
-    
+
     /// <summary>
     /// 
     /// </summary>
@@ -55,16 +55,7 @@ public abstract class FireForgetPlayerBase : IDisposable
         _mixer.AddMixerInput(source);
         return source;
     }
-    
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="source"></param>
-    public ISampleProvider Play(WaveCache source)
-    {
-        return Play(source.ToSampleProvider());
-    }
-    
+
     /// <summary>
     /// 
     /// </summary>
@@ -73,7 +64,7 @@ public abstract class FireForgetPlayerBase : IDisposable
     {
         _mixer.RemoveMixerInput(provider);
     }
-    
+
     /// <summary>
     /// 
     /// </summary>
@@ -81,7 +72,7 @@ public abstract class FireForgetPlayerBase : IDisposable
     {
         _mixer.RemoveAllMixerInputs();
     }
-    
+
     /// <summary>
     /// 
     /// </summary>
