@@ -23,7 +23,7 @@ public static class WaveFormatConverter
             waveFormat.BlockAlign,
             waveFormat.BitsPerSample);
     }
-    
+
     /// <summary>
     /// 
     /// </summary>

@@ -17,7 +17,7 @@ public static class CSCoreCodecFactoryDefaults
         factory.Register(["aiff", "aif", "aifc"],
             file => new AiffFileReader(file));
     }
-    
+
     /// <summary>
     /// 
     /// </summary>

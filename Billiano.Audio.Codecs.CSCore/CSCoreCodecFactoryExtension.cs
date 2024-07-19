@@ -9,7 +9,7 @@ public static class CSCoreCodecFactoryExtension
         factory.FallbackCodec = file => provider(file)
             .ToWaveProvider();
     }
-    
+
     public static void Register(this CodecFactory factory, string[] fileExtensions, CSCoreCodecProvider provider)
     {
         factory.Register(fileExtensions,

@@ -7,28 +7,28 @@ namespace Billiano.Audio;
 /// 
 /// </summary>
 /// <param name="source"></param>
-public sealed class WaveStreamToSource(WaveStream source): IWaveSource
+public sealed class WaveStreamToSource(WaveStream source) : IWaveSource
 {
     /// <summary>
     /// 
     /// </summary>
     public bool CanSeek => source.CanSeek;
-    
+
     /// <summary>
     /// 
     /// </summary>
     public CSCore.WaveFormat WaveFormat => WaveFormatConverter.ToCSCore(source.WaveFormat);
-    
+
     /// <summary>
     /// 
     /// </summary>
     public long Position { get => source.Position; set => source.Position = value; }
-    
+
     /// <summary>
     /// 
     /// </summary>
     public long Length => source.Length;
-    
+
     /// <summary>
     /// 
     /// </summary>

@@ -15,12 +15,12 @@ public class CodecFactory
     /// 
     /// </summary>
     public CodecProvider? FallbackCodec { get; set; }
-    
+
     /// <summary>
     /// 
     /// </summary>
     public IEnumerable<string> SupportedFileExtensions => _entries.Keys;
-    
+
     private readonly Dictionary<string, List<CodecProvider>> _entries;
 
     /// <summary>
@@ -30,7 +30,7 @@ public class CodecFactory
     {
         _entries = new Dictionary<string, List<CodecProvider>>(StringComparer.OrdinalIgnoreCase);
     }
-    
+
     /// <summary>
     /// 
     /// </summary>
@@ -43,7 +43,7 @@ public class CodecFactory
         factory.RegisterVorbis();
         return factory;
     }
-    
+
     /// <summary>
     /// 
     /// </summary>
@@ -56,7 +56,7 @@ public class CodecFactory
             Register(fileExtension, provider);
         }
     }
-    
+
     /// <summary>
     /// 
     /// </summary>
@@ -71,7 +71,7 @@ public class CodecFactory
         }
         _entries.Add(fileExtension, [provider]);
     }
-    
+
     /// <summary>
     /// 
     /// </summary>
@@ -83,7 +83,7 @@ public class CodecFactory
         return TryGetCodecProviderOrFallback(fileExtension)
             ?? throw new KeyNotFoundException(fileExtension);
     }
-    
+
     /// <summary>
     /// 
     /// </summary>
@@ -93,7 +93,7 @@ public class CodecFactory
     {
         var fileExtension = GetFileExtension(filePathOrExtension);
         var providers = TryGetCodecProvidersWithFallback(fileExtension);
-        
+
         if (providers.Count == 0)
         {
             throw new KeyNotFoundException(fileExtension);
@@ -101,7 +101,7 @@ public class CodecFactory
 
         return providers;
     }
-    
+
     /// <summary>
     /// 
     /// </summary>
@@ -111,7 +111,7 @@ public class CodecFactory
     {
         var extension = GetFileExtensionFromPath(filePath);
         var providers = TryGetCodecProvidersWithFallback(extension);
-        
+
         if (providers.Count == 0)
         {
             throw new KeyNotFoundException(extension);
@@ -133,14 +133,14 @@ public class CodecFactory
         throw new Exception("Failed to initialize all possible providers",
             new AggregateException(exceptions));
     }
-    
+
     private List<CodecProvider> TryGetCodecProviders(string fileExtension)
     {
         return _entries.TryGetValue(fileExtension, out var result) ? result : [];
     }
-    
+
     private List<CodecProvider> TryGetCodecProvidersWithFallback(string fileExtension)
-    {   
+    {
         var providers = TryGetCodecProviders(fileExtension);
         return FallbackCodec is not null ? providers.Append(FallbackCodec).ToList() : providers;
     }
@@ -149,12 +149,12 @@ public class CodecFactory
     {
         return TryGetCodecProviders(fileExtension).FirstOrDefault();
     }
-    
+
     private CodecProvider? TryGetCodecProviderOrFallback(string fileExtension)
     {
         return TryGetCodecProvider(fileExtension) ?? FallbackCodec;
     }
-    
+
     private static string GetFileExtension(string filePathOrExtension)
     {
         return filePathOrExtension.IndexOfAny(['/', '\\', '.']) == -1

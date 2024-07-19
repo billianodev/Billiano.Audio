@@ -17,7 +17,7 @@ public static class CSCoreConversionExtensions
     {
         return new SampleSourceToProvider(source);
     }
-    
+
     /// <summary>
     /// 
     /// </summary>
@@ -27,8 +27,7 @@ public static class CSCoreConversionExtensions
     {
         return new WaveSourceToProvider(source);
     }
-    
-    
+
     /// <summary>
     /// 
     /// </summary>
@@ -38,7 +37,7 @@ public static class CSCoreConversionExtensions
     {
         return new SampleProviderToSource(provider);
     }
-    
+
     /// <summary>
     /// 
     /// </summary>
@@ -48,7 +47,7 @@ public static class CSCoreConversionExtensions
     {
         return new WaveProviderToSource(provider);
     }
-    
+
     /// <summary>
     /// 
     /// </summary>

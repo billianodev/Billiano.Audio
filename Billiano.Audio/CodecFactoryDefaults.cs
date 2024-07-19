@@ -18,7 +18,7 @@ public static class CodecFactoryDefaults
         factory.Register(["wav", "wave"],
             file => new WaveFileReader(file));
     }
-    
+
     /// <summary>
     /// 
     /// </summary>
@@ -29,7 +29,7 @@ public static class CodecFactoryDefaults
             file => new Mp3FileReaderBase(file,
                     waveFormat => new Mp3FrameDecompressor(waveFormat)));
     }
-    
+
     /// <summary>
     /// 
     /// </summary>

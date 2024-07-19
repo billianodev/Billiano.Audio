@@ -34,7 +34,7 @@ void Play(string path)
 {
     var reader = codecFactory.GetCodec(path);
     var source = reader.ToWaveCache();
-    
+
 #if USE_FIRE_FORGET
     fireForgetPlayer.Play(source);
 #else

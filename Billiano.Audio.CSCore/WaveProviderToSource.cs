@@ -14,18 +14,18 @@ public sealed class WaveProviderToSource(IWaveProvider provider) : IWaveSource
     /// 
     /// </summary>
     public bool CanSeek => false;
-    
+
     /// <summary>
     /// 
     /// </summary>
     public CSCore.WaveFormat WaveFormat => WaveFormatConverter.ToCSCore(provider.WaveFormat);
-    
+
     /// <summary>
     /// 
     /// </summary>
     /// <exception cref="NotSupportedException"></exception>
     public long Position { get => throw new NotSupportedException(); set => throw new NotSupportedException(); }
-    
+
     /// <summary>
     /// 
     /// </summary>

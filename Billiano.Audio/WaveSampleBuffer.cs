@@ -15,18 +15,18 @@ public readonly struct WaveSampleBuffer
     /// </summary>
     [field: FieldOffset(0)]
     public int ByteBufferLength { get; }
-    
+
     /// <summary>
     /// 
     /// </summary>
     public int FloatBufferLength => ByteBufferLength / 4;
-    
+
     /// <summary>
     /// 
     /// </summary>
     [field: FieldOffset(8)]
     public byte[] ByteBuffer { get; }
-    
+
     /// <summary>
     /// 
     /// </summary>
@@ -45,7 +45,7 @@ public readonly struct WaveSampleBuffer
 
         var copy = (Span<byte>)stackalloc byte[ByteBufferLength];
         buffer.CopyTo(copy);
-        
+
         ByteBuffer = copy.ToArray();
     }
 
@@ -58,12 +58,12 @@ public readonly struct WaveSampleBuffer
         var bufferLength = buffer.Length;
         var align = bufferLength % 4;
         ByteBufferLength = align == 0 ? bufferLength : bufferLength - align + 4;
-        
+
         Array.Resize(ref buffer, ByteBufferLength);
 
         ByteBuffer = buffer;
     }
-    
+
     /// <summary>
     /// 
     /// </summary>

@@ -28,12 +28,12 @@ public sealed class PortAudioOut : IWavePlayer
     /// 
     /// </summary>
     public WaveFormat OutputWaveFormat => _provider.WaveFormat;
-    
+
     /// <summary>
     /// 
     /// </summary>
     public PlaybackState PlaybackState { get; private set; }
-    
+
     /// <summary>
     /// 
     /// </summary>
@@ -45,17 +45,17 @@ public sealed class PortAudioOut : IWavePlayer
     private double _suggestedLatency;
     private int? _desiredLatency;
     private uint _frameSize;
-    
+
     // Audio source
     private ISampleProvider _provider;
-    
+
     // Device
     private int _deviceId;
     private DeviceInfo _device;
 
     private bool _initialized;
     private bool _disposed;
-    
+
     static PortAudioOut()
     {
         Pa.Initialize();
@@ -86,7 +86,7 @@ public sealed class PortAudioOut : IWavePlayer
     public PortAudioOut() : this(null, null)
     {
     }
-    
+
     /// <summary>
     /// 
     /// </summary>
@@ -97,7 +97,7 @@ public sealed class PortAudioOut : IWavePlayer
         return devices < 0 ? [] : Enumerable.Range(0, devices - 1)
             .ToDictionary(x => x, Pa.GetDeviceInfo);
     }
-    
+
     /// <summary>
     /// 
     /// </summary>
@@ -132,7 +132,7 @@ public sealed class PortAudioOut : IWavePlayer
             sampleFormat = SampleFormat.Float32,
             suggestedLatency = _suggestedLatency
         };
-        
+
         _stream = new Stream(
             null,
             _streamParams,
@@ -141,7 +141,7 @@ public sealed class PortAudioOut : IWavePlayer
             StreamFlags.NoFlag,
             StreamCallback,
             null);
-        
+
         _stream.SetFinishedCallback(StreamFinishedCallback);
         _initialized = true;
     }
@@ -155,7 +155,7 @@ public sealed class PortAudioOut : IWavePlayer
         {
             return;
         }
-        
+
         Stop();
         try
         {
@@ -166,7 +166,7 @@ public sealed class PortAudioOut : IWavePlayer
         }
         _disposed = true;
     }
-    
+
     /// <summary>
     /// 
     /// </summary>
@@ -174,11 +174,11 @@ public sealed class PortAudioOut : IWavePlayer
     {
         ThrowIfNotInitialized();
         ThrowIfDisposed();
-        
+
         PlaybackState = PlaybackState.Playing;
         _stream.Start();
     }
-    
+
     /// <summary>
     /// 
     /// </summary>
@@ -186,7 +186,7 @@ public sealed class PortAudioOut : IWavePlayer
     {
         ThrowIfNotInitialized();
         ThrowIfDisposed();
-        
+
         PlaybackState = PlaybackState.Paused;
         _stream.Stop();
     }
@@ -200,19 +200,19 @@ public sealed class PortAudioOut : IWavePlayer
         PlaybackState = PlaybackState.Stopped;
         _stream.Abort();
     }
-    
+
     private uint CalculateFrameSize()
     {
         if (_desiredLatency is null or 0)
         {
             return Pa.FramesPerBufferUnspecified;
         }
-        
+
         var bytePerSample = OutputWaveFormat.BitsPerSample / 8;
         var frameSize = OutputWaveFormat.ConvertLatencyToByteSize(_desiredLatency.Value) / bytePerSample / OutputWaveFormat.Channels;
         return (uint)frameSize;
     }
-    
+
     private void ThrowIfDisposed()
     {
         if (_disposed)
@@ -220,7 +220,7 @@ public sealed class PortAudioOut : IWavePlayer
             throw new ObjectDisposedException(nameof(PortAudioOut));
         }
     }
-    
+
     private void ThrowIfInitialized()
     {
         if (_initialized)
@@ -228,7 +228,7 @@ public sealed class PortAudioOut : IWavePlayer
             throw new InvalidOperationException("Has been initialized!");
         }
     }
-    
+
     private void ThrowIfNotInitialized()
     {
         if (!_initialized)
@@ -236,7 +236,7 @@ public sealed class PortAudioOut : IWavePlayer
             throw new InvalidOperationException("Not initialized!");
         }
     }
-    
+
     private StreamCallbackResult StreamCallback(
         IntPtr input,
         IntPtr output,
@@ -251,8 +251,8 @@ public sealed class PortAudioOut : IWavePlayer
         Marshal.Copy(data, 0, output, data.Length);
 
         return count == 0 ? StreamCallbackResult.Complete : StreamCallbackResult.Continue;
-    }   
-    
+    }
+
     private void StreamFinishedCallback(IntPtr userDataPtr)
     {
         PlaybackState = PlaybackState.Stopped;

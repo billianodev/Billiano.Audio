@@ -7,13 +7,13 @@ namespace Billiano.Audio;
 /// 
 /// </summary>
 /// <param name="source"></param>
-public sealed class SampleSourceToProvider(ISampleSource source): ISampleProvider
+public sealed class SampleSourceToProvider(ISampleSource source) : ISampleProvider
 {
     /// <summary>
     /// 
     /// </summary>
     public NAudio.Wave.WaveFormat WaveFormat => WaveFormatConverter.ToNAudio(source.WaveFormat);
-    
+
     /// <summary>
     /// 
     /// </summary>

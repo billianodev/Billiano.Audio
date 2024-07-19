@@ -13,9 +13,9 @@ public class ResamplingSampleProvider : ISampleProvider
     /// 
     /// </summary>
     public WaveFormat WaveFormat => _source.WaveFormat;
-    
+
     private readonly ISampleProvider _source;
-    
+
     /// <summary>
     /// 
     /// </summary>
@@ -28,7 +28,7 @@ public class ResamplingSampleProvider : ISampleProvider
         {
             source = new WdlResamplingSampleProvider(source, targetWaveFormat.SampleRate);
         }
-        
+
         if (source.WaveFormat.Channels != targetWaveFormat.Channels)
         {
             source = (source.WaveFormat.Channels, targetWaveFormat.Channels) switch

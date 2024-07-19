@@ -1,5 +1,4 @@
-﻿using Billiano.Audio;
-using CSCore;
+﻿using CSCore;
 using NAudio.Wave;
 using WaveFormat = NAudio.Wave.WaveFormat;
 
@@ -9,23 +8,23 @@ namespace Billiano.Audio;
 /// 
 /// </summary>
 /// <param name="source"></param>
-public sealed class WaveSourceToProvider(IWaveSource source): WaveStream
+public sealed class WaveSourceToProvider(IWaveSource source) : WaveStream
 {
     /// <summary>
     /// 
     /// </summary>
     public override WaveFormat WaveFormat => WaveFormatConverter.ToNAudio(source.WaveFormat);
-    
+
     /// <summary>
     /// 
     /// </summary>
     public override long Length => source.Length;
-    
+
     /// <summary>
     /// 
     /// </summary>
     public override long Position { get => source.Position; set => source.Position = value; }
-    
+
     /// <summary>
     /// 
     /// </summary>

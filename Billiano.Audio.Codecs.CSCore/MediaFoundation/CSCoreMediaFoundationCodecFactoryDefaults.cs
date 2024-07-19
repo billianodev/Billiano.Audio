@@ -1,5 +1,4 @@
-﻿using System;
-using CSCore.Codecs.AAC;
+﻿using CSCore.Codecs.AAC;
 using CSCore.Codecs.DDP;
 using CSCore.Codecs.MP1;
 using CSCore.Codecs.MP2;
@@ -21,7 +20,7 @@ public static class CSCoreMediaFoundationCodecFactoryDefaults
     {
         factory.UseFallbackCodec(file => new MediaFoundationDecoder(file));
     }
-    
+
     /// <summary>
     /// 
     /// </summary>
@@ -48,7 +47,7 @@ public static class CSCoreMediaFoundationCodecFactoryDefaults
         {
         }
     }
-    
+
     public static void TryRegisterMp1(this CodecFactory factory)
     {
         if (Mp1Decoder.IsSupported)
@@ -57,7 +56,7 @@ public static class CSCoreMediaFoundationCodecFactoryDefaults
                 file => new Mp1Decoder(file));
         }
     }
-    
+
     public static void TryRegisterMp2(this CodecFactory factory)
     {
         if (Mp2Decoder.IsSupported)
@@ -66,7 +65,7 @@ public static class CSCoreMediaFoundationCodecFactoryDefaults
                 file => new Mp2Decoder(file));
         }
     }
-    
+
     public static void TryRegisterDDP(this CodecFactory factory)
     {
         if (DDPDecoder.IsSupported)

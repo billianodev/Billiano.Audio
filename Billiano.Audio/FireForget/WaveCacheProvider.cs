@@ -13,9 +13,9 @@ public class WaveCacheProvider(WaveCache source) : IWaveProvider, ISampleProvide
     /// 
     /// </summary>
     public WaveFormat WaveFormat => source.WaveFormat;
-    
+
     private int position;
-    
+
     /// <summary>
     /// 
     /// </summary>
@@ -31,7 +31,7 @@ public class WaveCacheProvider(WaveCache source) : IWaveProvider, ISampleProvide
         position += length;
         return length;
     }
-    
+
     /// <summary>
     /// 
     /// </summary>
