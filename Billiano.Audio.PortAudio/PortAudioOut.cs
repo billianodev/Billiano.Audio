@@ -6,37 +6,20 @@ using NAudio.Wave;
 using PortAudioSharp;
 using Pa = PortAudioSharp.PortAudio;
 
-#nullable disable
 namespace Billiano.Audio.PortAudio;
 
-/// <summary>
-/// 
-/// </summary>
 public sealed class PortAudioOut : IWavePlayer
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    [Obsolete("Use VolumeSampleProvider or similar", true)]
     public float Volume
     {
         get => 1f;
         set => throw new NotSupportedException();
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
     public WaveFormat OutputWaveFormat => _provider.WaveFormat;
 
-    /// <summary>
-    /// 
-    /// </summary>
     public PlaybackState PlaybackState { get; private set; }
 
-    /// <summary>
-    /// 
-    /// </summary>
     public event EventHandler<StoppedEventArgs> PlaybackStopped;
 
     // PortAudio
@@ -72,25 +55,14 @@ public sealed class PortAudioOut : IWavePlayer
         _desiredLatency = latency;
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="latency"></param>
     public PortAudioOut(int? latency) : this(null, latency)
     {
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
     public PortAudioOut() : this(null, null)
     {
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <returns></returns>
     public Dictionary<int, DeviceInfo> EnumerateDevices()
     {
         var devices = Pa.DeviceCount;
@@ -98,25 +70,18 @@ public sealed class PortAudioOut : IWavePlayer
             .ToDictionary(x => x, Pa.GetDeviceInfo);
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="id"></param>
     public void SetDevice(int id)
     {
         if (id == Pa.NoDevice)
         {
             throw new Exception("There is no device");
         }
+
         _deviceId = id;
         _device = Pa.GetDeviceInfo(_deviceId);
         _suggestedLatency = _device.defaultLowOutputLatency;
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="provider"></param>
     public void Init(IWaveProvider provider)
     {
         ThrowIfInitialized();
@@ -146,9 +111,6 @@ public sealed class PortAudioOut : IWavePlayer
         _initialized = true;
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
     public void Dispose()
     {
         if (_disposed)
@@ -156,7 +118,8 @@ public sealed class PortAudioOut : IWavePlayer
             return;
         }
 
-        Stop();
+        PlaybackState = PlaybackState.Stopped;
+
         try
         {
             _stream.Dispose();
@@ -164,12 +127,10 @@ public sealed class PortAudioOut : IWavePlayer
         catch (PortAudioException)
         {
         }
+
         _disposed = true;
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
     public void Play()
     {
         ThrowIfNotInitialized();
@@ -179,9 +140,6 @@ public sealed class PortAudioOut : IWavePlayer
         _stream.Start();
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
     public void Pause()
     {
         ThrowIfNotInitialized();
@@ -191,14 +149,9 @@ public sealed class PortAudioOut : IWavePlayer
         _stream.Stop();
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
     public void Stop()
     {
-        ThrowIfNotInitialized();
-        PlaybackState = PlaybackState.Stopped;
-        _stream.Abort();
+        Dispose();
     }
 
     private uint CalculateFrameSize()

@@ -11,7 +11,7 @@ Implements PortAudioSharp as NAudio `IWavePlayer`
 ```csharp
 using (var reader = new WaveFileReader("test.wav"))
 {
-    var backend = new PortAudioOut();
+    var player = new PortAudioOut();
     player.Init(reader);
     player.Play();
 }
