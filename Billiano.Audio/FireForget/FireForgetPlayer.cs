@@ -1,28 +1,56 @@
-﻿using NAudio.Wave;
+﻿using System;
+using NAudio.Wave;
+using NAudio.Wave.SampleProviders;
 
 namespace Billiano.Audio.FireForget;
 
-/// <summary>
-/// 
-/// </summary>
-public sealed class FireForgetPlayer : FireForgetPlayerBase
+public class FireForgetPlayer : IDisposable
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="player"></param>
-    /// <param name="waveFormat"></param>
-    public FireForgetPlayer(IWavePlayer player, WaveFormat waveFormat) : base(player, waveFormat)
+    public WaveFormat WaveFormat => _mixer.WaveFormat;
+
+    private readonly IWavePlayer _player;
+    private readonly MixingSampleProvider _mixer;
+
+    public FireForgetPlayer(IWavePlayer player, WaveFormat waveFormat)
     {
+        _mixer = new MixingSampleProvider(waveFormat)
+        {
+            ReadFully = true
+        };
+
+        _player = player;
+        _player.Init(_mixer);
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="provider"></param>
-    /// <returns></returns>
-    protected override ISampleProvider Preprocess(ISampleProvider provider)
+    public void Run()
     {
-        return new ResamplingSampleProvider(provider, WaveFormat);
+        _player.Play();
+    }
+
+    public ISampleProvider Play(ISampleProvider source)
+    {
+        source = Preprocess(source);
+        _mixer.AddMixerInput(source);
+        return source;
+    }
+
+    public void Stop(ISampleProvider provider)
+    {
+        _mixer.RemoveMixerInput(provider);
+    }
+
+    public void Stop()
+    {
+        _mixer.RemoveAllMixerInputs();
+    }
+
+    public void Dispose()
+    {
+        _player.Dispose();
+    }
+
+    protected virtual ISampleProvider Preprocess(ISampleProvider provider)
+    {
+        return provider;
     }
 }

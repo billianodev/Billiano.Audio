@@ -3,32 +3,18 @@ using NAudio.Wave;
 
 namespace Billiano.Audio.FireForget;
 
-/// <summary>
-/// 
-/// </summary>
-/// <param name="source"></param>
 public class WaveCacheProvider(WaveCache source) : IWaveProvider
 {
-    /// <summary>
-    /// 
-    /// </summary>
     public WaveFormat WaveFormat => source.WaveFormat;
 
-    private int position;
+    private int _position;
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="buffer"></param>
-    /// <param name="offset"></param>
-    /// <param name="count"></param>
-    /// <returns></returns>
     public int Read(byte[] buffer, int offset, int count)
     {
-        var max = source.Buffer.Length - position;
+        var max = source.Buffer.Length - _position;
         var length = Math.Min(max, count);
-        Buffer.BlockCopy(source.Buffer, position, buffer, offset, length);
-        position += length;
+        Buffer.BlockCopy(source.Buffer, _position, buffer, offset, length);
+        _position += length;
         return length;
     }
 }
