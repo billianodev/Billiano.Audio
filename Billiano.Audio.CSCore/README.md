@@ -4,7 +4,13 @@
 [![](https://img.shields.io/badge/Check-NAudio-white)](https://github.com/naudio/NAudio)
 [![](https://img.shields.io/badge/Check-CSCore-blue)](https://github.com/filoe/cscore)
 
-NAudio-CSCore conversion library, provides two-way conversion for similar classes/interfaces between both audio library.
+Conversion library for NAudio and CSCore
+
+Conversions available:
+
+- `WaveFormat` <-> `WaveFormat`
+- `WaveStream` <-> `IWaveSource` 
+- `ISampleProvider` <- `ISampleSource`
 
 ---
 
