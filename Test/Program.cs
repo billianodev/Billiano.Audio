@@ -17,7 +17,8 @@ var codecFactory = CodecFactory.CreateDefault();
 
 #if USE_FIRE_FORGET
 using var player = new PortAudioOut();
-using var fireForgetPlayer = new FireForgetPlayer(player, new WaveFormat(44100, 1));
+using var fireForgetPlayer = new ResamplingFireForgetPlayer(player, WaveFormat.CreateIeeeFloatWaveFormat(44100, 1));
+fireForgetPlayer.Run();
 #endif
 
 Console.ReadLine();
@@ -25,7 +26,6 @@ Play("test.mp3");
 Console.ReadLine();
 Play("test_tts.mp3");
 Console.ReadLine();
-return;
 
 void Play(string path)
 {
