@@ -7,23 +7,13 @@ using CSCore.MediaFoundation;
 
 namespace Billiano.Audio.Codecs.CSCore.MediaFoundation;
 
-/// <summary>
-/// 
-/// </summary>
 public static class CSCoreMediaFoundationCodecFactoryDefaults
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="factory"></param>
     public static void UseMediaFoundationFallback(this CodecFactory factory)
     {
         factory.UseFallbackCodec(file => new MediaFoundationDecoder(file));
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
     public static void TryRegisterAAC(this CodecFactory factory)
     {
         if (AacDecoder.IsSupported)
@@ -33,10 +23,6 @@ public static class CSCoreMediaFoundationCodecFactoryDefaults
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="factory"></param>
     public static void TryRegisterWMA(this CodecFactory factory)
     {
         try
@@ -52,10 +38,6 @@ public static class CSCoreMediaFoundationCodecFactoryDefaults
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="factory"></param>
     public static void TryRegisterMp1(this CodecFactory factory)
     {
         if (Mp1Decoder.IsSupported)
@@ -65,10 +47,6 @@ public static class CSCoreMediaFoundationCodecFactoryDefaults
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="factory"></param>
     public static void TryRegisterMp2(this CodecFactory factory)
     {
         if (Mp2Decoder.IsSupported)
@@ -78,10 +56,6 @@ public static class CSCoreMediaFoundationCodecFactoryDefaults
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="factory"></param>
     public static void TryRegisterDDP(this CodecFactory factory)
     {
         if (DDPDecoder.IsSupported)
